@@ -15,9 +15,9 @@ class AuthorsRepository:
     def save(self, first_name, last_name):
         self.cursor.execute('INSERT INTO authors (first_name, last_name) VALUES (%s, %s) RETURNING id',
                             (first_name, last_name))
-        author_id = self.cursor.fetchone()[0]
+        author_id = self.cursor.fetchone()
         self.connection.commit()
-        return author_id
+        return author_id["id"]
 
     def get(self, author_id):
         self.cursor.execute('SELECT id, first_name, last_name FROM authors WHERE id = %s', (author_id,))

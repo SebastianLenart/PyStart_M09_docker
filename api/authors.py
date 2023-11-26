@@ -1,8 +1,8 @@
 from flask import Response, request, abort
-from db import get_connection
 from json import dumps, loads
-from psycopg2 import extras
 from repositories import AuthorsRepository
+from models import Author
+from pydantic import ValidationError
 
 
 def index():
@@ -13,10 +13,17 @@ def index():
 def add():
     repository = AuthorsRepository()
     data = loads(request.data.decode('utf-8'))
-    author_id = repository.save(data["first_name"], data["last_name"])
-    return Response(dumps({
-        "id": author_id
-    }), mimetype="application/json", status=201)
+    try:
+        # walidacja
+        author = Author(**data)
+        author_id = repository.save(author.first_name, author.last_name)
+        return Response(dumps({
+            "id": author_id
+        }), mimetype="application/json", status=201)
+    except ValidationError as error: # nie podales first name i/lub lastname
+        return Response(error.json(), mimetype="application/json", status=400)
+
+
 
 
 def delete(author_id):

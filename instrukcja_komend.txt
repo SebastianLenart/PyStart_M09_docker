@@ -9,3 +9,11 @@ python3 -m pytest . # jako admin czyli sudo su i musi byc w tle compose up !!!
 
 http://127.0.0.1:5000/authors
 """
+
+biblioteki:
+
+psycopg2
+pytest
+Flask
+pydantic
+poczytaj o jinja
