@@ -21,3 +21,4 @@ Flask
 pydantic
 WTForms
 poczytaj o jinja
+flask-login

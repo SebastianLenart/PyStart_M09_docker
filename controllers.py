@@ -1,8 +1,8 @@
-from flask import render_template, request
+from flask import render_template, request,abort, redirect
 from forms import RegisterForm, LoginForm
 from repositories import UserRepository
 from hashlib import pbkdf2_hmac
-
+from flask_login import login_user, logout_user, login_required
 
 def login():
     form = LoginForm(request.form)
@@ -11,11 +11,21 @@ def login():
         crypted_password = crypt_password(form.password.data)
         repository = UserRepository()
         user = repository.get_by_name(user_name)
-        print(user["password"], "\n", crypted_password)
-    print("ASASASASs")
+        # print(user.password, "\n", crypted_password)
+        if user.password == crypted_password:
+            login_user(user)
+            return redirect("/home")
+        else:
+            abort(400)
     return render_template("login.html", hello="Worls", form=form)
 
+def logout():
+    logout_user()
+    return redirect("/login")
 
+@login_required # tylko dla zalogowanych, ale jak flask wie ze jestem zalogfowanyc ? cache ciastka? bufor jakis ?
+def home():
+    return render_template("home.html")
 
 
 def register():

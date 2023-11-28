@@ -5,6 +5,12 @@
     <title>Title</title>
 </head>
 <body>
+    {% if current_user.is_authenticated %}
+        Witaj {{ current_user.username }}
+        <a href="/logout">Wyloguj</a>
+    {% endif %}
+
+
     {% block intro %} To jest wstep {% endblock %}
     {% block content %} {% endblock %}
 
