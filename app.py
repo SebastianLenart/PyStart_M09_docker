@@ -13,7 +13,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     repo = UserRepository()
-    return repo.get_by_id(user_id)
+    return repo.get_by_id(user_id) # musi zwracac obiekt o konkretnych metodach, ale tego dziedziczymy zeby tych funkcji nie tworzyc
 
 
 app.add_url_rule("/authors", view_func=authors.index, methods=["GET"])

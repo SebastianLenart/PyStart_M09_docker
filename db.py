@@ -1,7 +1,10 @@
 
 from flask import g
 import psycopg2
+from dotenv import load_dotenv
+from os import getenv
 
+load_dotenv()
 
 def init_app(app):
     app.teardown_appcontext(close_connection)
@@ -9,7 +12,10 @@ def init_app(app):
 
 def get_connection():
     if 'connection' not in g:
-        g.connection = psycopg2.connect(dbname="app", user="app", password="admin123", host="db")
+        g.connection = psycopg2.connect(dbname=getenv("DB_NAME", "app"),
+                                        user=getenv("DB_USER", "app"),
+                                        password=getenv("DB_PASSWORD", "admin123"),
+                                        host=getenv("DB_HOST", "db"))
     return g.connection
 
 

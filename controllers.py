@@ -23,7 +23,7 @@ def logout():
     logout_user()
     return redirect("/login")
 
-@login_required # tylko dla zalogowanych, ale jak flask wie ze jestem zalogfowanyc ? cache ciastka? bufor jakis ?
+@login_required # strona tylko dla zalogowanych, ale jak flask wie ze jestem zalogfowanyc ? cache ciastka? bufor jakis ?
 def home():
     return render_template("home.html")
 

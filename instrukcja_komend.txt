@@ -5,7 +5,7 @@ docker-compose up
 docker-compose build # czasami z kropka na koncu
 
 python3 -m pytest . # jako admin czyli sudo su i musi byc w tle compose up !!!
-
+heroku login
 
 http://127.0.0.1:5000/authors
 """
@@ -22,3 +22,9 @@ pydantic
 WTForms
 poczytaj o jinja
 flask-login
+pip3 install gunicorn # serwer www
+python-dotenv
+
+GIT:
+git init
+git status

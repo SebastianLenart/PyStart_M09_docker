@@ -11,6 +11,7 @@ class UserRepository:
         self.connection = get_connection()
         self.cursor = self.connection.cursor(cursor_factory=extras.RealDictCursor)
 
+    # tworzy obiekt i go zwraca
     def map_row_to_user(self,row):
         user = User()
         user.id = row["id"]
